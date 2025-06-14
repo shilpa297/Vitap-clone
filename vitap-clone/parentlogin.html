@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    let currentCaptcha = "";
+
+    function generateCaptcha() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let captcha = "";
+      for (let i = 0; i < 5; i++) {
+        captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      currentCaptcha = captcha;
+      document.getElementById("captchaText").textContent = captcha;
+    }
+
+    function nextpage() {
+      const userCaptcha = document.getElementById("captcha").value.trim().toUpperCase();
+      if (userCaptcha === currentCaptcha) {
+        window.location.href = "3rd page.html";
+      } else {
+        document.getElementById("message").innerHTML = "❌ INCORRECT CAPTCHA";
+        generateCaptcha(); // refresh on wrong entry
+      }
+    }
+
+    window.onload = generateCaptcha;
+  </script>
+
+  <style>
+    .logo {
+      background-color: black;
+      padding: 10px;
+      height: 40px;
+    }
+
+    .logo img {
+      height: 50px;
+    }
+
+    .border {
+      width: 500px;
+      height: auto;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(255, 255, 255, 0.5);
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    button {
+      background-color: blue;
+      color: white;
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .reload-btn {
+      background-color: gray;
+      margin-left: 10px;
+      padding: 5px 10px;
+      font-size: 14px;
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      margin-top: 10px;
+    }
+
+    .captcha-container {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    #captchaText {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 28px;
+      letter-spacing: 5px;
+      background-color: #f2f2f2;
+      padding: 10px;
+      flex-grow: 1;
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      color: crimson;
+    }
+
+    .home {
+      margin-left: 370px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="logo">
+    <img src="https://vtapp.vitap.ac.in/_next/image?url=%2Fvitap-logo-white.png&w=3840&q=75" alt="VIT-AP Logo">
+  </div>
+
+  <div class="border">
+    <h2>VITAP Login</h2>
+
+    <input type="text" id="username" placeholder="Username">
+    <input type="date" id="dob" placeholder="Enter date of birth">
+    <input type="email" id="email" placeholder="Enter your parent email">
+
+    <div class="captcha-container">
+      <div id="captchaText">LOADING</div>
+      <button class="reload-btn" onclick="generateCaptcha()">🔄</button>
+    </div>
+
+    <input type="text" id="captcha" placeholder="Enter the CAPTCHA above">
+
+    <button onclick="nextpage()">Submit</button>
+
+    <p id="message"></p>
+
+    <a href="https://www.example.com">Forget password</a><br>
+    <a href="https://www.example.com">Forget username</a><br>
+
+    <div class="home">
+      <a href="https://www.example.com">Go to home page</a>
+    </div>
+  </div>
+</body>
+</html>
